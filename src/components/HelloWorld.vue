@@ -1,6 +1,7 @@
 <template>
-  <el-form ref="form" :model="form" label-width="110px">
-    <el-form-item label="淘口令或链接">
+<div   class="divcss5">
+  <el-form ref="form" :model="form" label-width="80px" v-loading="loading" :data="tableData">
+    <el-form-item label="淘口令或链接" >
       <el-input type="textarea" v-model="tables.content" @change="getDecodeData"></el-input>
     </el-form-item>
     <el-form-item label="优惠券信息:">
@@ -35,21 +36,22 @@
       </el-col>
     </el-row>
 
-    <!-- <el-row>
+    <el-row>
       <el-col :span="12">
         <div>
           <el-button type="primary" @click="openPage(this.coupon_click_url)">去领券</el-button>
-          <el-link :href="tables.coupon_click_url" target="_blank">去领券</el-link>
+          <!-- <el-link :href="tables.coupon_click_url" target="_blank">去领券</el-link> -->
         </div>
       </el-col>
       <el-col :span="12">
         <div>
           <el-button type="primary" @click="openPage(this.item_url)">去下单</el-button>
-          <el-link :href="tables.item_url" target="_blank">去下单</el-link>
+          <!-- <el-link :href="tables.item_url" target="_blank">去下单</el-link> -->
         </div>
       </el-col>
-    </el-row> -->
+    </el-row>
   </el-form>
+</div>
 </template>
 
 <script>
@@ -82,7 +84,8 @@ export default {
         item_url: "",
         max_commission_rate: "",
         activety_time: ""
-      }
+      },
+      loading: false
     };
   },
   methods: {
@@ -91,10 +94,11 @@ export default {
     },
     openPage(url) {
       console.log(url);
-    window.open(url, "_blank")
+      window.open(url, "_blank");
     },
     getDecodeData() {
-      // console.log("getDecodeData!");
+      this.loading = true;
+      console.log("getDecodeData!");
       this.$axios
         .post("http://localhost:8900/Convert/generalConvert", {
           // params: { text: "$mjThYwpz2t8$", id: "575123397938" },
@@ -107,9 +111,11 @@ export default {
           this.tables.scan = resp.data.data.scan;
           console.log(resp);
           console.log(this.tables);
+          this.loading = false;
         })
         .catch(err => {
           console.log(err);
+          this.loading = false;
         });
     }
   }
@@ -118,19 +124,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1,
-h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+
+.divcss5{
+  width: 100%;
+  height: 100%;
+} 
+/* css 注释：这样设置了对象divcss5宽度为300px样式 */ 
+
+ 
 </style>
