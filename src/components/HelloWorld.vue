@@ -1,6 +1,6 @@
 <template>
   <div class="divcss5">
-    586788542939
+    自助转链
     <el-form ref="form" :model="form" label-width="100px" v-loading="loading">
       <el-form-item label="淘口令或链接">
         <el-input type="textarea" v-model="tables.content" @change="getDecodeData"></el-input>
@@ -23,21 +23,23 @@
       </el-form-item>
 
       <div>
+
         <el-row>
-          <el-col :span="8">
+          <el-col :span="6" :offset="1">
             <div class="grid-content bg-purple">
               <el-form-item label="淘口令">
-                <el-button round @click="doCopy">复制</el-button>
+                <el-button round @click="doCopy" style="text-align:center;width:60px"><span style="text-align:center">copy</span></el-button>
               </el-form-item>
             </div>
           </el-col>
           <span></span>
-          <el-col :span="12">
+          <el-col :span="12" :offset="5">
             <div class="grid-content bg-purple">
-              <el-input v-model="tables.scan" :disabled="true" style="width:80%"></el-input>
+              <el-input v-model="tables.scan" :disabled="true" style="width:90%"></el-input>
             </div>
           </el-col>
         </el-row>
+
       </div>
 
       <el-row>
@@ -123,11 +125,11 @@ export default {
       this.loading = true;
       console.log("getDecodeData!");
       this.$axios
-        .post("http://192.168.0.33:8900/Convert/generalConvert", {
+        .post("http://127.0.0.1:8900/taoke/Convert/generalConvert", {
           // params: { text: "$mjThYwpz2t8$", id: "575123397938" },
           // id: "575123397938",
-          content: this.tables.content
-          // headers: { "X-Requested-With": "XMLHttpRequest" }
+          content: this.tables.content,
+          headers: { "Content-Type": "application/json" }
         })
         .then(resp => {
           console.log(resp);

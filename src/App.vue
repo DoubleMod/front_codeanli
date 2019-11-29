@@ -2,16 +2,19 @@
   <div id="app">
     <!-- <img src="./assets/logo.png"> -->
     <HelloWorld/>
+    <QueryOrder/>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld'
+import QueryOrder from './components/QueryOrder'
 
 export default {
   name: 'App',
   components: {
     HelloWorld
+    ,QueryOrder
   }
 }
 </script>
